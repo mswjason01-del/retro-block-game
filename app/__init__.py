@@ -1,3 +1,4 @@
+```python
 import os
 import secrets
 from flask import Flask, session
@@ -18,7 +19,7 @@ def create_app(test_config=None):
     from . import models  # noqa: F401
 
     with app.app_context():
-    db.create_all()
+        db.create_all()
 
     from .auth import auth_bp
     from .routes import main_bp
@@ -42,12 +43,21 @@ def create_app(test_config=None):
     @app.errorhandler(404)
     def missing_page(error):
         from flask import render_template
-        return render_template("error.html", code=404, message="This screen does not exist."), 404
+        return render_template(
+            "error.html",
+            code=404,
+            message="This screen does not exist."
+        ), 404
 
     @app.errorhandler(500)
     def server_error(error):
         db.session.rollback()
         from flask import render_template
-        return render_template("error.html", code=500, message="The arcade is temporarily unavailable."), 500
+        return render_template(
+            "error.html",
+            code=500,
+            message="The arcade is temporarily unavailable."
+        ), 500
 
     return app
+```
