@@ -5,7 +5,6 @@ services:
     region: oregon
     plan: free
     buildCommand: pip install -r requirements.txt
-    preDeployCommand: flask --app run.py init-db
     startCommand: gunicorn --bind 0.0.0.0:$PORT run:app
     autoDeploy: true
     envVars:
@@ -17,6 +16,7 @@ services:
         fromDatabase:
           name: retro-block-game-db
           property: connectionString
+
 databases:
   - name: retro-block-game-db
     region: oregon
