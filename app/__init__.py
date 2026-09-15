@@ -16,6 +16,10 @@ def create_app(test_config=None):
     db.init_app(app)
 
     from . import models  # noqa: F401
+
+    with app.app_context():
+    db.create_all()
+
     from .auth import auth_bp
     from .routes import main_bp
     app.register_blueprint(auth_bp)
