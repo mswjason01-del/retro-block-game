@@ -25,13 +25,31 @@ class Config:
     _secret_key = os.environ.get("SECRET_KEY")
     if _is_production and not _secret_key:
         raise RuntimeError("SECRET_KEY must be configured in production.")
+
     SECRET_KEY = _secret_key or "local-development-only-not-for-production"
-    _database_url = os.environ.get("DATABASE_URL", f"sqlite:///{BASE_DIR / 'instance' / 'retro_game.db'}")
-    # Older hosts sometimes expose the historic postgres:// prefix.
-    SQLALCHEMY_DATABASE_URI = _database_url.replace("postgres://", "postgresql://", 1)
+
+    _database_url = os.environ.get(
+        "DATABASE_URL",
+        f"sqlite:///{BASE_DIR / 'instance' / 'retro_game.db'}"
+    )
+
+    # Use psycopg 3 for PostgreSQL.
+    if _database_url.startswith("postgres://"):
+        _database_url = _database_url.replace(
+            "postgres://", "postgresql+psycopg://", 1
+        )
+    elif _database_url.startswith("postgresql://"):
+        _database_url = _database_url.replace(
+            "postgresql://", "postgresql+psycopg://", 1
+        )
+
+    SQLALCHEMY_DATABASE_URI = _database_url
+
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ENGINE_OPTIONS = {"pool_pre_ping": True}
+
     SESSION_COOKIE_HTTPONLY = True
     SESSION_COOKIE_SAMESITE = "Lax"
     SESSION_COOKIE_SECURE = os.environ.get("FLASK_ENV") == "production"
+
     MAX_CONTENT_LENGTH = 16 * 1024
