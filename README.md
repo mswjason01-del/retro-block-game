@@ -91,6 +91,3 @@ Render officially supports Flask/Gunicorn and GitHub-triggered automatic deploys
 
 Passwords use Werkzeug hashes and are never stored as plaintext. State-changing requests use CSRF tokens; protected routes require a session; SQLAlchemy avoids string-built SQL; and score submissions must use an unused server game session and pass sanity checks. A browser game cannot completely stop a modified client, so a server-authoritative engine is a future anti-cheat improvement.
 
-## License and learning guide
-
-This project uses the MIT License. For a file-by-file explanation of the game, security, database, GitHub, and deployment workflows, see [RETRO_BLOCK_GAME_LEARNING_GUIDE.md](RETRO_BLOCK_GAME_LEARNING_GUIDE.md).
