@@ -1,1 +1,99 @@
-{% extends 'base.html' %}{% block title %}Play — Block Game{% endblock %}{% block content %}<section class="game-shell" data-csrf="{{ csrf_token }}"><div class="game-top"><span>PLAYER: <b>{{ user.username }}</b></span><button id="fullscreen" class="small-button">FULL SCREEN</button></div><div class="game-layout"><aside class="hud"><div><span>SCORE</span><strong id="score">0</strong></div><div><span>LINES</span><strong id="lines">0</strong></div><div><span>LEVEL</span><strong id="level">1</strong></div><div><span>HIGH SCORE</span><strong id="high-score">{{ user.high_score }}</strong></div></aside><div class="board-wrap"><canvas id="board" width="300" height="600" aria-label="Falling block game board" role="img"></canvas><div id="overlay" class="overlay"><h2>BLOCK GAME</h2><p>ARROWS TO MOVE · ↑ ROTATES<br>SPACE DROPS · P PAUSES</p><button id="start" class="button primary">START GAME</button></div></div><aside class="next-panel"><span>NEXT</span><canvas id="next" width="120" height="120" aria-label="Next piece"></canvas><button id="pause" class="small-button">PAUSE</button></aside></div><div class="touch-controls" aria-label="Touch controls"><button data-action="rotate" aria-label="Rotate piece">↻<small>ROTATE</small></button><div><button data-action="left" aria-label="Move left">◀</button><button data-action="down" aria-label="Soft drop">▼</button><button data-action="right" aria-label="Move right">▶</button></div><button data-action="drop" class="drop" aria-label="Hard drop">HARD DROP</button></div><p class="game-help">Score results are checked by the server before they reach the leaderboard.</p></section><script src="{{ url_for('static', filename='js/game.js') }}"></script>{% endblock %}
+{% extends 'base.html' %}
+
+{% block title %}Play — Block Game{% endblock %}
+
+{% block content %}
+
+<section class="game-shell" data-csrf="{{ csrf_token }}">
+
+    <div class="game-top">
+        <span>PLAYER - NAME: <b>{{ user.username }}</b></span>
+        <button id="fullscreen" class="small-button">FULL SCREEN</button>
+    </div>
+
+    <div class="game-layout">
+
+        <aside class="hud">
+            <div>
+                <span>SCORE</span>
+                <strong id="score">0</strong>
+            </div>
+
+            <div>
+                <span>LINES</span>
+                <strong id="lines">0</strong>
+            </div>
+
+            <div>
+                <span>LEVEL</span>
+                <strong id="level">1</strong>
+            </div>
+
+            <div>
+                <span>HIGH SCORE</span>
+                <strong id="high-score">{{ user.high_score }}</strong>
+            </div>
+        </aside>
+
+        <div class="board-wrap">
+            <canvas
+                id="board"
+                width="300"
+                height="600"
+                aria-label="Falling block game board"
+                role="img"
+            ></canvas>
+
+            <div id="overlay" class="overlay">
+                <h2>BLOCK GAME</h2>
+                <p>
+                    ARROWS TO MOVE · ↑ ROTATES<br>
+                    SPACE DROPS · P PAUSES
+                </p>
+                <button id="start" class="button primary">START GAME</button>
+            </div>
+        </div>
+
+        <aside class="next-panel">
+            <span>NEXT</span>
+
+            <canvas
+                id="next"
+                width="120"
+                height="120"
+                aria-label="Next piece"
+            ></canvas>
+
+            <button id="pause" class="small-button">PAUSE</button>
+        </aside>
+
+    </div>
+
+    <div class="touch-controls" aria-label="Touch controls">
+
+        <button data-action="rotate" aria-label="Rotate piece">
+            ↻
+            <small>ROTATE</small>
+        </button>
+
+        <div>
+            <button data-action="left" aria-label="Move left">◀</button>
+            <button data-action="down" aria-label="Soft drop">▼</button>
+            <button data-action="right" aria-label="Move right">▶</button>
+        </div>
+
+        <button data-action="drop" class="drop" aria-label="Hard drop">
+            HARD DROP
+        </button>
+
+    </div>
+
+    <p class="game-help">
+        Your score results are checked by the server before they reach the leaderboard, Go ahead and check the leader board to see your rank when you are finished!!
+    </p>
+
+</section>
+
+<script src="{{ url_for('static', filename='js/game.js') }}"></script>
+
+{% endblock %}
