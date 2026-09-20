@@ -1,1 +1,60 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="description" content="Block Game: a fast, classic retro puzzle game."><meta property="og:title" content="Block Game — Classic Retro Puzzle"><meta property="og:description" content="Create a name, play, and climb the leaderboard."><title>{% block title %}Block Game — Classic Retro Puzzle{% endblock %}</title><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%2300e5ff' d='M1 1h6v6H1zm8 0h6v6H9zM1 9h6v6H1zm8 0h6v6H9z'/%3E%3C/svg%3E"><link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"></head><body><header><a class="logo" href="{{ url_for('main.index') }}">BLOCK<br><span>GAME</span></a><nav>{% if session.get('user_id') %}<a href="{{ url_for('main.game') }}">PLAY</a><a href="{{ url_for('main.profile') }}">PROFILE</a><form method="post" action="{{ url_for('auth.logout') }}"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><button class="nav-button">LOG OUT</button></form>{% else %}<a href="{{ url_for('auth.login') }}">LOG IN</a>{% endif %}<a href="{{ url_for('main.leaderboard') }}">RANKS</a></nav></header><main>{% with messages = get_flashed_messages(with_categories=true) %}{% for category,message in messages %}<div class="flash {{ category }}" role="alert">{{ message }}</div>{% endfor %}{% endwith %}{% block content %}{% endblock %}</main><footer><a href="{{ url_for('main.privacy') }}">Privacy</a> · Built for quick games and fair competition.</footer></body></html>
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="Block Game: a fast, classic retro puzzle game.">
+    <meta property="og:title" content="Block Game — Classic Retro Puzzle">
+    <meta property="og:description" content="Create a name, play, and climb the leaderboard.">
+
+    <title>{% block title %}Block Game — Classic Retro Block Puzzle{% endblock %}</title>
+
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%2300e5ff' d='M1 1h6v6H1zm8 0h6v6H9zM1 9h6v6H1zm8 0h6v6H9z'/%3E%3C/svg%3E">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <a class="logo" href="{{ url_for('main.index') }}">
+            RETRO<br>
+              BLOCK<br>
+              <span>GAME</span>
+        </a>
+
+        <nav>
+            {% if session.get('user_id') %}
+                <a href="{{ url_for('main.game') }}">PLAY</a>
+                <a href="{{ url_for('main.profile') }}">PROFILE</a>
+
+                <form method="post" action="{{ url_for('auth.logout') }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                    <button class="nav-button">LOG OUT</button>
+                </form>
+            {% else %}
+                <a href="{{ url_for('auth.login') }}">LOG IN</a>
+            {% endif %}
+
+            <a href="{{ url_for('main.leaderboard') }}">RANKS</a>
+        </nav>
+    </header>
+
+    <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category,message in messages %}
+                <div class="flash {{ category }}" role="alert">{{ message }}</div>
+            {% endfor %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+    <!--hide this for now
+    <footer>
+        <a href="{{ url_for('main.privacy') }}">Privacy</a> · Built for quick games and fair competition.
+    </footer>
+  -->>
+</body>
+
+</html>
