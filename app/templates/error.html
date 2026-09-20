@@ -1,1 +1,18 @@
-{% extends 'base.html' %}{% block content %}<section class="hero error"><p class="eyebrow">ERROR {{ code }}</p><h1>GAME<br>PAUSED.</h1><p>{{ message }}</p><a class="button primary" href="{{ url_for('main.index') }}">GO HOME</a></section>{% endblock %}
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="hero error">
+    <p class="eyebrow">ERROR {{ code }}</p>
+
+    <h1>
+        GAME<br>
+        PAUSED.
+    </h1>
+
+    <p>{{ message }}</p>
+
+    <a class="button primary" href="{{ url_for('main.index') }}">GO HOME</a>
+</section>
+
+{% endblock %}
